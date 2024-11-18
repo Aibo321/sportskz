@@ -1,7 +1,7 @@
 # Sports News Website
 
 ## Overview
-This project is a comprehensive, interactive sports news website designed to keep users up-to-date with the latest developments in various sports. The site includes individual pages for different sports categories: the main homepage, football news, contact page, and a detailed page for a recent CSKA victory. Each page is styled consistently and incorporates interactive features to enhance user experience, such as theme switching, real-time date and time display, and a rating system.
+This project is a comprehensive, interactive sports news website designed to keep users up-to-date with the latest developments in various sports. The site includes individual pages for different sports categories: the main homepage, football news, contact page, and a detailed page for each of event. Each page is styled consistently and incorporates interactive features to enhance user experience, such as theme switching, real-time date and time display, and a rating system.
 
 ## Project Structure
 
@@ -9,7 +9,7 @@ This project is a comprehensive, interactive sports news website designed to kee
 1. **index.html** - The homepage showcasing the latest sports news.
 2. **football.html**(basketball,tennis) - Dedicated page for football news with filtering options.
 3. **contacts.html** - Contact page providing users with ways to connect with the editorial team.
-4. **details.html** - A detailed page on CSKA’s victory, with a built-in rating system for users to score the video.
+4. **details.html** - A detailed page on all events, with a built-in rating system for users to score the video.
 
 ### Directory Structure
 The following is an ideal structure to organize the files:
