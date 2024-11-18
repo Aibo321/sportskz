@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Спортивные новости - Теннис</title>
+
+    <style>
+        /* Общие стили */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+            color: black;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #1d3557;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+            padding-left: 10px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin: 0 10px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav ul li a:hover {
+            color: #fca311;
+        }
+
+        .date-time-display {
+            color: white;
+            font-size: 1.2rem;
+            margin-right: 10px;
+        }
+
+        .change-bg-btn {
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 50%;
+            background-color: black;
+            color: white;
+        }
+
+        .filter-btn {
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 20px 0;
+            background-color: #fca311;
+            color: white;
+            border-radius: 5px;
+            margin-left: 20px;
+        }
+
+        .filter-options {
+            display: none;
+            margin-bottom: 20px;
+            margin-left: 20px;
+        }
+
+        .filter-options button {
+            margin-right: 10px;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #1d3557;
+            color: white;
+        }
+
+        main {
+            flex: 1;
+            padding: 20px;
+            margin-left: 20px;
+        }
+
+        .news-section {
+            margin: 20px 0;
+        }
+
+        .news-section h3 a {
+            color: #1d3557;
+            text-decoration: none;
+        }
+
+        .media-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            height: 300px;
+            margin: 0 auto;
+        }
+
+        .news-image,
+        .news-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .news-video {
+            display: none;
+        }
+
+        footer {
+            background-color: #1d3557;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: relative;
+            width: 100%;
+        }
+
+        .hidden {
+            display: none;
+        }
+        @media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    header h1 {
+        font-size: 20px;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    nav ul {
+        flex-direction: column; /* Делает меню вертикальным */
+        align-items: center;
+        padding: 0;
+        margin: 0;
+    }
+
+    nav ul li {
+        margin: 5px 0; /* Отступы между пунктами меню */
+    }
+
+    nav ul li a {
+        font-size: 16px; /* Увеличивает читаемость */
+        padding: 10px 20px; /* Добавляет отступы для удобства нажатия */
+        display: block;
+        width: 100%; /* Растягивает элементы на всю ширину */
+        text-align: center;
+    }
+
+    .date-time-display {
+        font-size: 1rem;
+        text-align: center;
+        margin: 10px 0;
+    }
+
+    .change-bg-btn {
+        margin: 10px 0;
+    }
+}
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Теннисные новости</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="football.html">Футбол</a></li>
+                <li><a href="basketball.html">Баскетбол</a></li>
+                <li><a href="tennis.html">Теннис</a></li>
+                <li><a href="contacts.html">Контакты</a></li>
+            </ul>
+        </nav>
+        <div class="date-time-display" id="headerDateTimeDisplay"></div>
+        <button id="changeColorBtn" class="change-bg-btn"></button>
+    </header>
+
+    <main>
+        <button id="filterBtn" class="filter-btn">Фильтр</button>
+
+        <div class="filter-options" id="filterOptions">
+            <button data-filter="all">Все</button>
+            <button data-filter="sharapova">Шарапова</button>
+            <button data-filter="wimbledon">Уимблдон</button>
+            <button data-filter="rising-stars">Новые лица</button>
+        </div>
+
+        <article>
+            <h2>Новости тенниса</h2>
+
+            <section class="news-section" data-category="sharapova">
+                <h3><a href="sharapova-comeback.html">Возвращение Марии Шараповой</a></h3>
+                <div class="media-container">
+                    <img src="https://img.championat.com/s/1350x900/news/big/n/x/vihlyanceva-samaya-samaya-sharapova-ideal-tennisistki-v-svoyo-vremya_1709721958595914572.jpg" alt="Мария Шарапова" class="news-image">
+                    <video class="news-video" muted loop>
+                        <source src="C:\Users\aibol\OneDrive\Рабочий стол\SportNews\Maria Sharapova hits 2 LEFTY forehands in stunning point! 👀.mp4" type="video/mp4">
+                        Ваш браузер не поддерживает видео.
+                    </video>
+                </div>
+                <p>Мария Шарапова вернулась в профессиональный теннис после перерыва.</p>
+            </section>
+
+            <section class="news-section" data-category="wimbledon">
+                <h3><a href="djokovic-final.html">Уимблдон: Новак Джокович в финале</a></h3>
+                <div class="media-container">
+                    <img src="https://photobooth.cdn.sports.ru/preset/post/6/77/9c3ad0f664f7e93482adede754eeb.jpeg" alt="Новак Джокович" class="news-image">
+                    <video class="news-video" muted loop>
+                        <source src="C:\Users\aibol\OneDrive\Рабочий стол\SportNews\Novak Djokovic at his BEST! 🤩.mp4" type="video/mp4">
+                        Ваш браузер не поддерживает видео.
+                    </video>
+                </div>
+                <p>Новак Джокович вышел в финал Уимблдона.</p>
+            </section>
+
+            <section class="news-section" data-category="rising-stars">
+                <h3><a href="raducanu-rising-star.html">Новые лица в мире тенниса</a></h3>
+                <div class="media-container">
+                    <img src="https://gotennis.ru/cache/uploads/catsubcat/f455ece0b4b557672e408f730fec0711.webp" alt="Эмма Радукану" class="news-image">
+                    <video class="news-video" muted loop>
+                        <source src="C:\Users\aibol\OneDrive\Рабочий стол\SportNews\Emma Raducanu's PURE power! 💪.mp4" type="video/mp4">
+                        Ваш браузер не поддерживает видео.
+                    </video>
+                </div>
+                <p>Молодая звезда тенниса, Эмма Радукану, вошла в топ-20 рейтинга WTA.</p>
+            </section>
+        </article>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Спортивные новости. Все права защищены.</p>
+    </footer>
+
+    <script>
+        // Обновление даты и времени
+        function updateDateTime() {
+            const now = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            document.getElementById('headerDateTimeDisplay').textContent = now.toLocaleDateString('ru-RU', options);
+        }
+
+        setInterval(updateDateTime, 1000);
+        updateDateTime();
+
+        // Применение темы
+        let isBlack = localStorage.getItem('theme') === 'dark';
+
+        function applyTheme() {
+            const button = document.getElementById('changeColorBtn');
+            if (isBlack) {
+                document.body.style.backgroundColor = 'black';
+                document.body.style.color = 'white';
+                button.style.backgroundColor = 'white';
+                button.style.color = 'black';
+            } else {
+                document.body.style.backgroundColor = 'white';
+                document.body.style.color = 'black';
+                button.style.backgroundColor = 'black';
+                button.style.color = 'white';
+            }
+        }
+
+        document.getElementById('changeColorBtn').addEventListener('click', () => {
+            isBlack = !isBlack;
+            localStorage.setItem('theme', isBlack ? 'dark' : 'light');
+            applyTheme();
+        });
+
+        applyTheme();
+
+        // Воспроизведение видео при наведении
+        const mediaContainers = document.querySelectorAll('.media-container');
+
+        mediaContainers.forEach(container => {
+            const image = container.querySelector('.news-image');
+            const video = container.querySelector('.news-video');
+
+            container.addEventListener('mouseenter', () => {
+                image.style.display = 'none';
+                video.style.display = 'block';
+                video.play();
+            });
+
+            container.addEventListener('mouseleave', () => {
+                video.style.display = 'none';
+                image.style.display = 'block';
+                video.pause();
+                video.currentTime = 0;
+            });
+        });
+
+        // Фильтр новостей
+        const filterBtn = document.getElementById('filterBtn');
+        const filterOptions = document.getElementById('filterOptions');
+        const newsSections = document.querySelectorAll('.news-section');
+        const storageKey = "tennisFilter";
+
+        function applyFilter(filterValue) {
+            newsSections.forEach(section => {
+                const category = section.getAttribute('data-category');
+                if (filterValue === 'all' || category === filterValue) {
+                    section.classList.remove('hidden');
+                } else {
+                    section.classList.add('hidden');
+                }
+            });
+        }
+
+        function saveFilter(filterValue) {
+            localStorage.setItem(storageKey, filterValue);
+        }
+
+        function loadFilter() {
+            const savedFilter = localStorage.getItem(storageKey) || 'all';
+            applyFilter(savedFilter);
+        }
+
+        filterBtn.addEventListener('click', () => {
+            filterOptions.style.display = filterOptions.style.display === 'block' ? 'none' : 'block';
+        });
+
+        filterOptions.addEventListener('click', (event) => {
+            if (event.target.tagName === 'BUTTON') {
+                const filterValue = event.target.dataset.filter;
+                applyFilter(filterValue);
+                saveFilter(filterValue);
+            }
+        });
+
+        window.addEventListener('load', loadFilter);
+    </script>
+</body>
+
+</html>
