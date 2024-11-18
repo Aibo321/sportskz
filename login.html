@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Авторизация</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #007BFF, #00C6FF);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            width: 360px;
+            text-align: center;
+            position: absolute;
+            transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+        }
+
+        .hidden {
+            opacity: 0;
+            transform: scale(0.8);
+            pointer-events: none;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #007BFF;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        input[type="text"], input[type="email"], input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            margin-top: 5px;
+            background: #f3f3f3;
+            color: #333;
+            font-size: 14px;
+            outline: none;
+        }
+
+        input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
+            border: 1px solid #007BFF;
+            background: #fff;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #007BFF, #00C6FF);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #0056b3, #0086d4);
+        }
+
+        .animated-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 123, 255, 0.4), rgba(0, 198, 255, 0.4));
+            filter: blur(50px);
+            animation: move 6s infinite;
+        }
+
+        @keyframes move {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            50% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+            100% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="animated-bg"></div>
+    <div id="loginForm" class="container">
+        <h2>Вход</h2>
+        <div class="form-group">
+            <label for="loginUsername">Имя пользователя</label>
+            <input type="text" id="loginUsername" placeholder="Введите имя пользователя">
+            <div class="error-message" id="loginUsernameError">Введите имя пользователя</div>
+        </div>
+        <div class="form-group">
+            <label for="loginPassword">Пароль</label>
+            <input type="password" id="loginPassword" placeholder="Введите пароль">
+            <div class="error-message" id="loginPasswordError">Введите корректный пароль</div>
+        </div>
+        <button id="loginButton">Войти</button>
+        <button id="toRegisterButton" style="margin-top: 10px; background: #f3f3f3; color: #333;">Нет аккаунта? Зарегистрироваться</button>
+    </div>
+
+    <div id="registerForm" class="container hidden">
+        <h2>Регистрация</h2>
+        <div class="form-group">
+            <label for="regUsername">Имя пользователя</label>
+            <input type="text" id="regUsername" placeholder="Введите имя пользователя">
+            <div class="error-message" id="regUsernameError">Введите имя пользователя</div>
+        </div>
+        <div class="form-group">
+            <label for="regEmail">Email</label>
+            <input type="email" id="regEmail" placeholder="Введите email">
+            <div class="error-message" id="regEmailError">Введите корректный email</div>
+        </div>
+        <div class="form-group">
+            <label for="regPassword">Пароль</label>
+            <input type="password" id="regPassword" placeholder="Введите пароль">
+            <div class="error-message" id="regPasswordError">Пароль должен быть не менее 7 символов</div>
+        </div>
+        <button id="registerButton">Зарегистрироваться</button>
+        <button id="backToLoginButton" style="margin-top: 10px; background: #f3f3f3; color: #333;">Назад к входу</button>
+    </div>
+
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const toRegisterButton = document.getElementById('toRegisterButton');
+        const backToLoginButton = document.getElementById('backToLoginButton');
+
+        // Переключение на форму регистрации
+        toRegisterButton.addEventListener('click', () => {
+            loginForm.classList.add('hidden');
+            setTimeout(() => {
+                registerForm.classList.remove('hidden');
+            }, 500);
+        });
+
+        // Возврат к форме входа
+        backToLoginButton.addEventListener('click', () => {
+            registerForm.classList.add('hidden');
+            setTimeout(() => {
+                loginForm.classList.remove('hidden');
+            }, 500);
+        });
+
+        // Регистрация
+        document.getElementById('registerButton').addEventListener('click', () => {
+            const username = document.getElementById('regUsername').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const password = document.getElementById('regPassword').value.trim();
+
+            if (!username || !email || password.length < 7) {
+                if (!username) showError('regUsernameError', 'Введите имя пользователя');
+                if (!email.includes('@')) showError('regEmailError', 'Введите корректный email');
+                if (password.length < 7) showError('regPasswordError', 'Пароль должен быть не менее 7 символов');
+                return;
+            }
+
+            localStorage.setItem('username', username);
+            localStorage.setItem('email', email);
+            localStorage.setItem('password', password);
+
+            alert('Регистрация прошла успешно! Вы можете войти.');
+            backToLoginButton.click();
+        });
+
+        // Вход
+        document.getElementById('loginButton').addEventListener('click', () => {
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+            const storedUsername = localStorage.getItem('username');
+            const storedPassword = localStorage.getItem('password');
+
+            if (username === storedUsername && password === storedPassword) {
+                alert(`Добро пожаловать, ${storedUsername}!`);
+                window.location.href = 'index.html'; // Перенаправление на index.html
+            } else {
+                alert('Неверное имя пользователя или пароль.');
+            }
+        });
+
+        // Показывать/скрывать сообщения об ошибке
+        function showError(id, message) {
+            const errorElement = document.getElementById(id);
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
