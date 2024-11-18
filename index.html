@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Спортивные новости - Главная</title>
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+    header {
+        background-color: #1d3557;
+        color: white;
+    }
+
+    .nav-link {
+        color: white;
+        font-weight: bold;
+        padding: 0.5rem 1rem;
+    }
+
+    .nav-link:hover {
+        color: #fca311;
+    }
+
+    .header-icons img {
+        height: 30px;
+        width: 30px;
+    }
+
+    .date-time-display {
+        color: white;
+        font-size: 1.2rem;
+    }
+
+    .header-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 0;
+    }
+
+    .header-logo {
+        display: flex;
+        align-items: center;
+        flex: 1;
+    }
+
+    .login-btn, .logout-btn {
+        margin-left: 10px;
+        padding: 5px 15px;
+        font-size: 14px;
+        background-color: #fca311;
+        border: none;
+        border-radius: 4px;
+        color: white;
+        cursor: pointer;
+    }
+
+    .header-nav {
+        flex: 2;
+    }
+
+    .header-icons {
+        display: flex;
+        justify-content: flex-end;
+        flex: 1;
+    }
+
+    .header-search {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 10px;
+    }
+
+    .change-bg-btn, .music-btn {
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        font-size: 18px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+
+    .step {
+        display: none;
+    }
+
+    .step.active {
+        display: block;
+    }
+
+    .navigation-buttons {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    .dark-theme .card {
+        background-color: #333;
+        color: white;
+    }
+
+    .dark-theme .card-body {
+        color: white;
+    }
+
+    .dark-theme {
+        background-color: black;
+        color: white;
+    }
+
+    .light-theme {
+        background-color: white;
+        color: black;
+    }
+
+    @media (max-width: 768px) {
+        .header-container {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header-nav ul {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header-nav .nav-item {
+            margin-bottom: 10px;
+        }
+
+        .header-icons {
+            margin-top: 10px;
+            justify-content: center;
+        }
+
+        .header-search {
+            justify-content: center;
+        }
+
+        .change-bg-btn, .music-btn {
+            margin: 0 5px;
+        }
+
+        .card img {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card {
+            margin-bottom: 20px;
+        }
+
+        .header-logo img {
+            width: 120px;
+            height: auto;
+        }
+
+        .login-btn, .logout-btn {
+            font-size: 12px;
+            padding: 5px 10px;
+        }
+    }
+</style>
+
+</head>
+
+<body>
+    <header>
+        <div class="container-fluid">
+            <div class="header-container">
+                <div class="header-logo">
+                    <img src="https://via.placeholder.com/150x50?text=Sports.KZ" alt="Logo" class="img-fluid">
+                    <button class="login-btn" id="loginBtn">Войти</button>
+                    <button class="logout-btn" id="logoutBtn" style="display: none;">Выйти</button>
+                </div>
+                <nav class="header-nav">
+                    <ul class="nav justify-content-center">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Главная</a></li>
+                        <li class="nav-item"><a class="nav-link" href="football.html">Футбол</a></li>
+                        <li class="nav-item"><a class="nav-link" href="basketball.html">Баскетбол</a></li>
+                        <li class="nav-item"><a class="nav-link" href="tennis.html">Теннис</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contacts.html">Контакты</a></li>
+                    </ul>
+                </nav>
+                <div class="header-icons">
+                    <button id="changeColorBtn" class="change-bg-btn">Тема</button>
+                    <button id="playPauseBtn" class="music-btn">Музыка</button>
+                </div>
+            </div>
+            <div class="header-search">
+                <div class="col-3 date-time-display" id="headerDateTimeDisplay"></div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <h2 class="text-center">Последние новости спорта</h2>
+        <p class="text-center">Добро пожаловать на наш сайт, где вы найдете самые свежие и актуальные новости спорта.</p>
+
+        <audio id="backgroundMusic" loop>
+            <source src="C:\Users\aibol\OneDrive\Рабочий стол\SportNews\details\LAKEY_INSPIRED_-_Chill_Day_74376759.mp3">
+            Your browser does not support the audio element.
+        </audio>
+
+        <section class="row">
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <a href="football.html">
+                        <img src="https://storage.yandexcloud.net/roz-wiki/Russia_vs_Egypt_2018.jpg?20240206094143" alt="Футбол" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">Футбол</h5>
+                            <p class="card-text">Сборная России готовится к матчу с командой Испании в рамках отборочного турнира к чемпионату мира.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <a href="basketball.html">
+                        <img src="https://cskabasket.ru/upload/iblock/16d/mdq5z38fbznkfarctdeol6p3abox8ez5/head.jpg" alt="Баскетбол" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">Баскетбол</h5>
+                            <p class="card-text">Московский клуб ЦСКА одержал очередную победу в Евролиге, обыграв испанский «Реал Мадрид».</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <a href="tennis.html">
+                        <img src="https://avatars.mds.yandex.net/i?id=69b7bf4e546466948d4d91f803e8016b_l-6229182-images-thumbs&n=13" alt="Теннис" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">Теннис</h5>
+                            <p class="card-text">Мария Шарапова вернулась на корт и победила в первом матче турнира в Майами.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="accordion mt-5">
+            <h2 class="text-center mb-4">Часто задаваемые вопросы</h2>
+
+            <div class="step active">
+                <h5>Как оформить подписку на новости?</h5>
+                <div class="answer">
+                    <p>Вы можете зарегистрироваться через пункт войти.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <h5>Как связаться с редакцией?</h5>
+                <div class="answer">
+                    <p>Вы можете связаться с нами через страницу контактов.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <h5>Как отправить статью для публикации?</h5>
+                <div class="answer">
+                    <p>Если вы хотите предложить статью для публикации, отправьте ее на нашу электронную почту sports.kz@gmail.com.</p>
+                </div>
+            </div>
+
+            <div class="navigation-buttons">
+                <button class="btn btn-secondary" id="prevBtn" style="display: none;">Назад</button>
+                <button class="btn btn-primary" id="nextBtn">Далее</button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-dark text-white text-center py-3">
+        <p>&copy; 2024 Спортивные новости. Все права защищены.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const loginBtn = document.getElementById('loginBtn');
+        const logoutBtn = document.getElementById('logoutBtn');
+
+        if (localStorage.getItem('username')) {
+            loginBtn.style.display = 'none';
+            logoutBtn.style.display = 'inline-block';
+            logoutBtn.textContent = `Выйти (${localStorage.getItem('username')})`;
+        }
+
+        loginBtn.addEventListener('click', function () {
+            window.location.href = 'login.html';
+        });
+
+        logoutBtn.addEventListener('click', function () {
+            localStorage.removeItem('username');
+            window.location.href = 'login.html';
+        });
+    </script>
+
+    <script>
+        const steps = document.querySelectorAll('.step');
+        let currentStep = 0;
+
+        document.getElementById('nextBtn').addEventListener('click', function () {
+            steps[currentStep].classList.remove('active');
+            currentStep++;
+            if (currentStep >= steps.length) {
+                currentStep = steps.length - 1;
+            }
+            if (currentStep > 0) {
+                document.getElementById('prevBtn').style.display = "inline-block";
+            }
+            if (currentStep === steps.length - 1) {
+                this.style.display = "none";
+            }
+            steps[currentStep].classList.add('active');
+        });
+
+        document.getElementById('prevBtn').addEventListener('click', function () {
+            steps[currentStep].classList.remove('active');
+            currentStep--;
+            if (currentStep < 0) {
+                currentStep = 0;
+            }
+            steps[currentStep].classList.add('active');
+            if (currentStep === 0) {
+                this.style.display = "none";
+            }
+            document.getElementById('nextBtn').style.display = "inline-block";
+        });
+    </script>
+
+    <script>
+        const changeColorBtn = document.getElementById('changeColorBtn');
+        let isBlack = localStorage.getItem('theme') === 'dark';
+
+        function updateTheme() {
+            if (isBlack) {
+                document.body.classList.add('dark-theme');
+                document.body.classList.remove('light-theme');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.body.classList.add('light-theme');
+                document.body.classList.remove('dark-theme');
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        changeColorBtn.addEventListener('click', function () {
+            isBlack = !isBlack;
+            updateTheme();
+        });
+
+        updateTheme();
+    </script>
+
+    <script>
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const backgroundMusic = document.getElementById('backgroundMusic');
+        let isPlaying = false;
+
+        playPauseBtn.addEventListener('click', function () {
+            if (isPlaying) {
+                backgroundMusic.pause();
+                playPauseBtn.textContent = 'Музыка';
+            } else {
+                backgroundMusic.play();
+                playPauseBtn.textContent = 'Пауза';
+            }
+            isPlaying = !isPlaying;
+        });
+
+        backgroundMusic.addEventListener('ended', function () {
+            isPlaying = false;
+            playPauseBtn.textContent = 'Музыка';
+        });
+    </script>
+
+    <script>
+        function updateDateTime() {
+            const now = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            const formattedDate = now.toLocaleDateString('ru-RU', options);
+            document.getElementById('headerDateTimeDisplay').textContent = formattedDate;
+        }
+
+        setInterval(updateDateTime, 1000);
+        updateDateTime();
+    </script>
+
+
+</body>
+
+</html>
+    

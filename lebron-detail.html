@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>НБА: Леброн Джеймс побил рекорд - Детали</title>
+    <link rel="stylesheet" href="details-styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s, color 0.3s;
+            color: black;
+        }
+
+        header, footer {
+            background-color: #1d3557;
+            color: white;
+            padding: 10px;
+        }
+
+        main {
+            flex: 1;
+            padding: 20px 40px;
+            margin: 0 auto;
+        }
+
+        .video-container {
+            margin: 20px auto;
+            max-width: 700px;
+        }
+
+        .rating-container {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0;
+        }
+
+        .star {
+            font-size: 2rem;
+            cursor: pointer;
+            color: grey;
+            transition: color 0.3s;
+        }
+
+        .star:hover,
+        .star.selected {
+            color: gold;
+        }
+
+        #ratingMessage {
+            text-align: center;
+            font-size: 1.2rem;
+            margin-top: 15px;
+        }
+
+        .dark-theme {
+            background-color: black;
+            color: white;
+        }
+
+        .dark-theme p,
+        .dark-theme h1,
+        .dark-theme h2,
+        .dark-theme h3,
+        .dark-theme a {
+            color: white !important;
+        }
+
+        @media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    header h1 {
+        font-size: 20px;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    nav ul {
+        flex-direction: column; /* Делает меню вертикальным */
+        align-items: center;
+        padding: 0;
+        margin: 0;
+    }
+
+    nav ul li {
+        margin: 5px 0; /* Отступы между пунктами меню */
+    }
+
+    nav ul li a {
+        font-size: 16px; /* Увеличивает читаемость */
+        padding: 10px 20px; /* Добавляет отступы для удобства нажатия */
+        display: block;
+        width: 100%; /* Растягивает элементы на всю ширину */
+        text-align: center;
+    }
+
+    .date-time-display {
+        font-size: 1rem;
+        text-align: center;
+        margin: 10px 0;
+    }
+
+    .change-bg-btn {
+        margin: 10px 0;
+    }
+}
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Леброн Джеймс побил рекорд НБА</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="football.html">Футбол</a></li>
+                <li><a href="basketball.html">Баскетбол</a></li>
+                <li><a href="tennis.html">Теннис</a></li>
+                <li><a href="contacts.html">Контакты</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <article>
+            <h2>Леброн Джеймс преодолел отметку в 38,000 очков</h2>
+
+            <div class="video-container">
+                <iframe width="560" height="315" src="C:\Users\aibol\OneDrive\Рабочий стол\SportNews\@sp_yt_bot-1727204582405928.mp4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+
+            <div class="rating-container">
+                <span class="star" data-value="1">&#9733;</span>
+                <span class="star" data-value="2">&#9733;</span>
+                <span class="star" data-value="3">&#9733;</span>
+                <span class="star" data-value="4">&#9733;</span>
+                <span class="star" data-value="5">&#9733;</span>
+            </div>
+            <div id="ratingMessage">Поставьте рейтинг этому видео!</div>
+
+            <p>Леброн Джеймс, легенда НБА, достиг нового рекорда, набрав 38,000 очков за свою карьеру. Этот исторический момент произошел в матче против «Голден Стэйт Уорриорз», где «Лос-Анджелес Лейкерс» одержали победу.</p>
+
+            <p>После матча Леброн заявил, что его главная цель — это приведение команды к победе в чемпионате, а личные достижения остаются на втором плане.</p>
+        </article>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Спортивные новости. Все права защищены.</p>
+    </footer>
+
+    <script>
+        // Логика для смены темы
+        const body = document.body;
+
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                body.classList.add('dark-theme');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.classList.remove('dark-theme');
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        applyTheme(savedTheme);
+
+        // Логика для работы рейтинговой системы
+        const stars = document.querySelectorAll('.star');
+        const ratingMessage = document.getElementById('ratingMessage');
+
+        stars.forEach((star, index) => {
+            star.addEventListener('click', () => {
+                if (star.classList.contains('selected')) {
+                    stars.forEach((s, i) => {
+                        if (i >= index) {
+                            s.classList.remove('selected');
+                        }
+                    });
+                } else {
+                    stars.forEach((s, i) => {
+                        if (i <= index) {
+                            s.classList.add('selected');
+                        }
+                    });
+                }
+
+                const selectedStars = document.querySelectorAll('.star.selected').length;
+
+                switch (selectedStars) {
+                    case 1:
+                        ratingMessage.textContent = '1 звезда - очень плохо';
+                        break;
+                    case 2:
+                        ratingMessage.textContent = '2 звезды - плохо';
+                        break;
+                    case 3:
+                        ratingMessage.textContent = '3 звезды - хорошо';
+                        break;
+                    case 4:
+                        ratingMessage.textContent = '4 звезды - очень хорошо';
+                        break;
+                    case 5:
+                        ratingMessage.textContent = '5 звезд - великолепно';
+                        break;
+                    default:
+                        ratingMessage.textContent = 'Поставьте рейтинг этому видео!';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
